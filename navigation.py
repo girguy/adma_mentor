@@ -1,4 +1,5 @@
 import streamlit as st
+from time import sleep
 from streamlit.runtime.scriptrunner import get_script_run_ctx
 from streamlit.source_util import get_pages
 
@@ -38,4 +39,5 @@ def make_sidebar():
 def logout():
     st.session_state.logged_in = False
     st.info("Logged out successfully!")
+    sleep(0.5)
     st.switch_page("streamlit_app.py")

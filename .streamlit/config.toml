@@ -3,3 +3,4 @@ base="light"
 primaryColor="#865439"
 secondaryBackgroundColor="#f4ccb8"
 textColor="#0a0a0a"
+showSidebarNavigation = false
