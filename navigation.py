@@ -21,8 +21,8 @@ def make_sidebar():
         st.write("")
 
         if st.session_state.get("logged_in", False):
-            st.page_link("pages/page1.py", label="Add a new mentor", icon="🔒")
-            st.page_link("pages/page2.py", label="See ADMA mentors", icon="🕵️")
+            st.page_link("pages/page1.py", label="Add a new mentor", icon="🕵️")
+            st.page_link("pages/page2.py", label="See ADMA mentors", icon="📚")
 
             st.write("")
             st.write("")

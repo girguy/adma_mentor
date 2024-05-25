@@ -65,7 +65,7 @@ def add_row_to_dataframe():
 
 st.write(
 """
-# 🕵️ Add a new mentor
+# 🕵️ Add a new mentor to the team
 
 """
 )
