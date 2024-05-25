@@ -6,7 +6,6 @@ import pandas as pd
 import base64
 
 
-
 st.markdown(
     """
     <style>
