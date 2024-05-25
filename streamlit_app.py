@@ -62,6 +62,7 @@ password = st.text_input("Password", type="password")
 
 if st.button("Log in", type="primary"):
     if username == "test" and password == "test":
+        st.session_state.interviewer = username
         st.session_state.logged_in = True
         st.session_state.date_time = get_date_time()
         st.session_state.data = load_dataframe_from_cloud('data.csv')

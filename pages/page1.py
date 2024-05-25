@@ -56,7 +56,8 @@ def add_row_to_dataframe():
         'Question_9': [st.session_state.question_9], 'Question_10': [st.session_state.question_10],
         'Question_11': [st.session_state.question_11], 'Question_12': [st.session_state.question_12],
         'Question_13': [st.session_state.question_13], 'Question_14': [st.session_state.question_14],
-        'Question_15': [st.session_state.question_15], 'Remarque': [st.session_state.question_16]
+        'Question_15': [st.session_state.question_15], 'Remarque': [st.session_state.question_16],
+        'Interviewer': [st.session_state.interviewer]
         })
     st.session_state.data = pd.concat([st.session_state.data, row])
     st.session_state.data.to_csv('saved.csv', sep=';', header=True, index=False)
