@@ -31,12 +31,14 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+
 def get_date_time():
     # datetime object containing current date and time
     now = datetime.now()
     # dd/mm/YY H:M:S
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     return dt_string
+
 
 def add_data_to_cloud():
     pass
@@ -46,6 +48,7 @@ def add_row_to_dataframe():
     row = pd.DataFrame({
         'First_Name': [st.session_state.first_name], 'Last_Name': [st.session_state.last_name],
         'Datetime': [st.session_state.date_time], 'SubmittedDatetime': [get_date_time()],
+        'Age': [st.session_state.age], 'Email': [st.session_state.email],
         'Question_1': [st.session_state.question_1], 'Question_2': [st.session_state.question_2],
         'Question_3': [st.session_state.question_3], 'Question_4': [st.session_state.question_4],
         'Question_5': [st.session_state.question_5], 'Question_6': [st.session_state.question_6],
@@ -72,11 +75,15 @@ make_sidebar()
 mentor_form = st.form(key='mentor_form')
 with mentor_form:
 
-    cols = st.columns(2)
+    cols = st.columns(4)
     with cols[0]:
         st.session_state.first_name = st.text_input('Prénom', key='First_Name')
     with cols[1]:
         st.session_state.last_name = st.text_input('Nom', key='Last_Name')
+    with cols[2]:
+        st.session_state.age = st.text_input('Age', key='Age')
+    with cols[3]:
+        st.session_state.email = st.text_input('Email', key='Email')
 
     st.session_state.question_1 = st.text_area('Parcours académique', key='Question_1')
     st.session_state.question_2 = st.text_area('Parcours professionel', key='Question_2')
