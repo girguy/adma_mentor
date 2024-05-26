@@ -1,0 +1,28 @@
+{
+    "users": [
+        {
+            "username": "guy.girineza@admanetwork.com",
+            "password_hash": "e1147afd3f28e11a49283c973aed6554be714d3c4cff98e932e334b936ccd5c2"
+        },
+        {
+            "username": "sylvain.kpekou@admanetwork.com",
+            "password_hash": "96ebe41c7924d0826bbace52760cc6224efd913ef283547dd0621713ffcf1c36"
+        },
+        {
+            "username": "chris.mbangala@admanetwork.com",
+            "password_hash": "4dd471217ce8d10b77a094d97cb3685bde0542c86f3b209bd9798b2f490e43ec"
+        },
+        {
+            "username": "isabelle.uwera@admanetwork.com",
+            "password_hash": "c20150640665c556e54a41ba0ac1cbf828e89147858bcfb80216f0ff1bc17898"
+        },
+        {
+            "username": "cedric.hirwa@admanetwork.com",
+            "password_hash": "259834f33a1caa3d12b6b28c27e433b371928ac075d902cdb70381ed88eb8bff"
+        },
+        {
+            "username": "test",
+            "password_hash": "37268335dd6931045bdcdf92623ff819a64244b53d0e746d438797349d4da578"
+        }
+    ]
+}

@@ -4,7 +4,8 @@ from navigation import make_sidebar
 from datetime import datetime
 import pandas as pd
 import base64
-
+import hashlib
+import json
 
 st.markdown(
     """
@@ -20,6 +21,21 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
+
+def get_users_passwords(file_name):
+    # Load JSON data from file
+    with open(file_name, 'r') as file:
+        data = json.load(file)
+    # Transform users list into a dictionary
+    return {user['username']: user['password_hash'] for user in data['users']}
+
+
+def hash_password(username, password):
+    password_bytes = f"{username}{password}".encode('utf-8')
+    hash_object = hashlib.sha256(password_bytes)
+    return hash_object.hexdigest()
+
 
 def get_base64(bin_file):
     with open(bin_file, 'rb') as f:
@@ -60,8 +76,10 @@ make_sidebar()
 username = st.text_input("Username")
 password = st.text_input("Password", type="password")
 
+users_dict = get_users_passwords('users.json')
+
 if st.button("Log in", type="primary"):
-    if username == "test" and password == "test":
+    if hash_password(username, password) == users_dict[username]:
         st.session_state.interviewer = username
         st.session_state.logged_in = True
         st.session_state.date_time = get_date_time()
