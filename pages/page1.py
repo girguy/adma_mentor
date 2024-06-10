@@ -2,6 +2,7 @@ from navigation import make_sidebar
 import streamlit as st
 import pandas as pd
 from datetime import datetime
+import io
 
 
 st.set_page_config(layout="wide")
@@ -40,8 +41,17 @@ def get_date_time():
     return dt_string
 
 
-def add_data_to_cloud():
-    pass
+def upload_blob_to_container(df, blob_service_client, container_name, blob_path):
+    # Convert DataFrame to CSV in memory
+    csv_buffer = io.StringIO()
+    df.to_csv(csv_buffer, index=False, sep=';')
+    csv_buffer.seek(0)  # Move the cursor to the start of the stream
+
+    # Upload the CSV from the in-memory buffer
+    blob_service_client = blob_service_client.get_blob_client(container=container_name, blob=blob_path)
+    blob_service_client.upload_blob(csv_buffer.getvalue(), overwrite=True)
+
+    print(f"DataFrame uploaded to container 'bronze' with path {blob_path} successfully.")
 
 
 def add_row_to_dataframe():
@@ -60,8 +70,10 @@ def add_row_to_dataframe():
         'Interviewer': [st.session_state.interviewer]
         })
     st.session_state.data = pd.concat([st.session_state.data, row])
-    st.session_state.data.to_csv('saved.csv', sep=';', header=True, index=False)
-
+    upload_blob_to_container(st.session_state.data,
+                             st.session_state.blob_service_client,
+                             st.session_state.container_name,
+                             st.session_state.blob_path)
 
 st.write(
 """

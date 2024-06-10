@@ -3,9 +3,13 @@ from time import sleep
 from navigation import make_sidebar
 from datetime import datetime
 import pandas as pd
+import re
+import io
 import base64
 import hashlib
 import json
+from azure.storage.blob import BlobServiceClient
+
 
 st.markdown(
     """
@@ -56,11 +60,27 @@ def set_background(png_file):
     ''' % bin_str
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
+
 set_background('pictures/adma_background.jpg')
 
 
-def load_dataframe_from_cloud(path):
-    return pd.read_csv(path, sep=';', header=0)
+def create_blob_client_with_connection_string(connection_string):
+    connection_string = re.sub(r'%2B', '+', connection_string)
+    blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+    return blob_service_client
+
+
+def load_dataset_from_blob(blob_service_client, container_name, blob_path):
+    blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_path)
+
+    # Download the blob as bytes
+    blob_data = blob_client.download_blob().readall()
+
+    # Convert the bytes data to a StringIO object and then to a DataFrame
+    csv_data = io.StringIO(blob_data.decode('utf-8'))
+    df = pd.read_csv(csv_data, sep=';', header=0)
+
+    return df
 
 
 def get_date_time():
@@ -73,6 +93,16 @@ def get_date_time():
 
 make_sidebar()
 
+st.session_state.container_name = 'bronze/'
+folder_name = 'adma-mentor'
+blob_name = 'adma_mentor.csv'
+st.session_state.blob_path = f"{folder_name}/{blob_name}"
+
+# Create a blob client
+connection_string = st.secrets["CONNECTION_STRING"]
+st.session_state.blob_service_client = create_blob_client_with_connection_string(connection_string)
+print("Successfully created blob client\n")
+
 username = st.text_input("Username")
 password = st.text_input("Password", type="password")
 
@@ -83,7 +113,9 @@ if st.button("Log in", type="primary"):
         st.session_state.interviewer = username
         st.session_state.logged_in = True
         st.session_state.date_time = get_date_time()
-        st.session_state.data = load_dataframe_from_cloud('data.csv')
+        st.session_state.data = load_dataset_from_blob(st.session_state.blob_service_client,
+                                                       st.session_state.container_name,
+                                                       st.session_state.blob_path)
         st.success("Logged in successfully!")
         sleep(0.5)
         st.switch_page("pages/page1.py")
