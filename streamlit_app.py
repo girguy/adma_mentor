@@ -26,7 +26,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-
+@st.cache_data
 def get_users_passwords(file_name):
     # Load JSON data from file
     with open(file_name, 'r') as file:
@@ -34,18 +34,18 @@ def get_users_passwords(file_name):
     # Transform users list into a dictionary
     return {user['username']: user['password_hash'] for user in data['users']}
 
-
+@st.cache_data
 def hash_password(username, password):
     password_bytes = f"{username}{password}".encode('utf-8')
     hash_object = hashlib.sha256(password_bytes)
     return hash_object.hexdigest()
 
-
+@st.cache_data
 def get_base64(bin_file):
     with open(bin_file, 'rb') as f:
         data = f.read()
     return base64.b64encode(data).decode()
-
+@st.cache_data
 def set_background(png_file):
     bin_str = get_base64(png_file)
     page_bg_img = '''
@@ -94,9 +94,15 @@ def get_date_time():
 make_sidebar()
 
 st.session_state.container_name = 'bronze/'
+
 folder_name = 'adma-mentor'
-blob_name = 'adma_mentor.csv'
-st.session_state.blob_path = f"{folder_name}/{blob_name}"
+mentor_blob_name = 'adma_mentor_test.csv'
+st.session_state.mentor_blob_path = f"{folder_name}/{mentor_blob_name}"
+
+folder_name = 'adma-mentee'
+mentee_blob_name = 'adma_mentee_test.csv'
+st.session_state.mentee_blob_path = f"{folder_name}/{mentee_blob_name}"
+
 
 # Create a blob client
 connection_string = st.secrets["CONNECTION_STRING"]
@@ -113,9 +119,19 @@ if st.button("Log in", type="primary"):
         st.session_state.interviewer = username
         st.session_state.logged_in = True
         st.session_state.date_time = get_date_time()
-        st.session_state.data = load_dataset_from_blob(st.session_state.blob_service_client,
-                                                       st.session_state.container_name,
-                                                       st.session_state.blob_path)
+
+        st.session_state.mentor_data = load_dataset_from_blob(
+            st.session_state.blob_service_client,
+            st.session_state.container_name,
+            st.session_state.mentor_blob_path
+            )
+
+        st.session_state.mentee_data = load_dataset_from_blob(
+            st.session_state.blob_service_client,
+            st.session_state.container_name,
+            st.session_state.mentee_blob_path
+            )
+
         st.success("Logged in successfully!")
         sleep(0.5)
         st.switch_page("pages/page1.py")

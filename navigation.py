@@ -23,6 +23,9 @@ def make_sidebar():
         if st.session_state.get("logged_in", False):
             st.page_link("pages/page1.py", label="Add a new mentor", icon="🕵️")
             st.page_link("pages/page2.py", label="See ADMA mentors", icon="📚")
+            st.page_link("pages/page3.py", label="Add a new mentee", icon="🕵️")
+            st.page_link("pages/page4.py", label="See ADMA mentees", icon="📚")
+            st.page_link("pages/page5.py", label="Update data", icon="🔍")
 
             st.write("")
             st.write("")
