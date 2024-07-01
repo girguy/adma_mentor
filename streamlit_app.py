@@ -96,11 +96,11 @@ make_sidebar()
 st.session_state.container_name = 'bronze/'
 
 folder_name = 'adma-mentor'
-mentor_blob_name = 'adma_mentor_test.csv'
+mentor_blob_name = 'adma_mentor.csv'
 st.session_state.mentor_blob_path = f"{folder_name}/{mentor_blob_name}"
 
 folder_name = 'adma-mentee'
-mentee_blob_name = 'adma_mentee_test.csv'
+mentee_blob_name = 'adma_mentee.csv'
 st.session_state.mentee_blob_path = f"{folder_name}/{mentee_blob_name}"
 
 

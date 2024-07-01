@@ -119,18 +119,30 @@ def get_date_time() -> str:
     Returns:
         str: The current date and time formatted as "dd/mm/YYYY HH:MM:SS".
     """
+    # Get the current date and time
     now = datetime.now()
+    # Format the date and time as a string
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     return dt_string
 
+def reduce_white_space_above_title() -> str:
+    """
+    Generate a CSS style block to reduce white space above the title in Streamlit.
 
-def reduce_white_space_above_title():
-    # Reduce the white space above the title
+    Returns:
+        str: A string containing the CSS style block.
+    """
+    # Return the CSS style to reduce padding above the title
     return """<style> div.block-container {padding-top:0.4rem;} </style>"""
 
 
 def adjust_the_sidebar_width():
-    return st.markdown(
+    """
+    Adjust the width of the Streamlit sidebar using CSS.
+
+    This function modifies the sidebar width based on its expanded or collapsed state.
+    """
+    st.markdown(
         """
         <style>
         [data-testid="stSidebar"][aria-expanded="true"] > div:first-child {
@@ -143,17 +155,36 @@ def adjust_the_sidebar_width():
         </style>
         """,
         unsafe_allow_html=True
-        )
+    )
 
 
-def get_base64(bin_file):
+def get_base64(bin_file: str) -> str:
+    """
+    Encode a binary file to a Base64 string.
+
+    Args:
+        bin_file (str): The path to the binary file.
+
+    Returns:
+        str: The Base64 encoded string of the file content.
+    """
+    # Open the file in binary read mode and read its content
     with open(bin_file, 'rb') as f:
         data = f.read()
+    # Encode the binary data to a Base64 string
     return base64.b64encode(data).decode()
 
 
-def set_background(png_file):
+def set_background(png_file: str):
+    """
+    Set the background image of the Streamlit app.
+
+    Args:
+        png_file (str): The path to the PNG file to be used as background.
+    """
+    # Get the Base64 string of the PNG file
     bin_str = get_base64(png_file)
+    # Define the CSS style to set the background image
     page_bg_img = '''
     <style>
     .stApp {
@@ -164,10 +195,20 @@ def set_background(png_file):
     }
     </style>
     ''' % bin_str
+    # Apply the CSS style to the Streamlit app
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
 
-def extract_unique_elements(df):
+def extract_unique_elements(df: pd.Series) -> list:
+    """
+    Extract unique elements from a pandas Series.
+
+    Args:
+        df (pd.Series): The input pandas Series.
+
+    Returns:
+        list: A list of unique elements from the Series.
+    """
+    # Get the unique elements from the Series and convert to a list
     list_of_names = pd.unique(df).tolist()
     return list_of_names
-
