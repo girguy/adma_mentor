@@ -1,10 +1,11 @@
 from navigation import make_sidebar
 import streamlit as st
-from datetime import datetime
 from config import constant
 from config.utils import load_dataset_from_blob
 from config.utils import upload_blob_to_container
 from config.utils import clean_df
+from config.utils import adjust_the_sidebar_width
+from config.utils import reduce_white_space_above_title
 
 
 # Function to handle data editing and uploading
@@ -45,30 +46,10 @@ def handle_data_editing(df_key: str, blob_path: str, df_columns: list):
 # Set the Streamlit page configuration
 st.set_page_config(layout="wide")
 
-# Reduce the white space above the title
-reduce_header_height_style = """
-    <style>
-        div.block-container {padding-top:0.4rem;}
-    </style>
-"""
-st.markdown(reduce_header_height_style, unsafe_allow_html=True)
+st.markdown(reduce_white_space_above_title(), unsafe_allow_html=True)
 
 # Adjust the sidebar width
-st.markdown(
-    """
-    <style>
-    [data-testid="stSidebar"][aria-expanded="true"] > div:first-child {
-        width: 250px;
-    }
-    [data-testid="stSidebar"][aria-expanded="false"] > div:first-child {
-        width: 250px;
-        margin-left: -250px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
+adjust_the_sidebar_width()
 
 # Display the page title
 st.write("# 🕵️ Update data")

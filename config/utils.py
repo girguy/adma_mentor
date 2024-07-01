@@ -3,6 +3,8 @@ import io
 from azure.storage.blob import BlobServiceClient
 import logging
 from datetime import datetime
+import streamlit as st
+import base64
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -120,3 +122,52 @@ def get_date_time() -> str:
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     return dt_string
+
+
+def reduce_white_space_above_title():
+    # Reduce the white space above the title
+    return """<style> div.block-container {padding-top:0.4rem;} </style>"""
+
+
+def adjust_the_sidebar_width():
+    return st.markdown(
+        """
+        <style>
+        [data-testid="stSidebar"][aria-expanded="true"] > div:first-child {
+            width: 250px;
+        }
+        [data-testid="stSidebar"][aria-expanded="false"] > div:first-child {
+            width: 250px;
+            margin-left: -250px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+        )
+
+
+def get_base64(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+
+def set_background(png_file):
+    bin_str = get_base64(png_file)
+    page_bg_img = '''
+    <style>
+    .stApp {
+    background-image: url("data:image/png;base64,%s");
+    background-size: 100vw 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    }
+    </style>
+    ''' % bin_str
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+
+
+def extract_unique_elements(df):
+    list_of_names = pd.unique(df).tolist()
+    return list_of_names
+
