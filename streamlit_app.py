@@ -87,7 +87,7 @@ def get_date_time():
     # datetime object containing current date and time
     now = datetime.now()
     # dd/mm/YY H:M:S
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
     return dt_string
 
 
@@ -125,7 +125,7 @@ if st.button("Log in", type="primary"):
             st.session_state.container_name,
             st.session_state.mentor_blob_path
             )
-
+        
         st.session_state.mentee_data = load_dataset_from_blob(
             st.session_state.blob_service_client,
             st.session_state.container_name,

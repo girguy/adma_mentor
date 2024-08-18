@@ -34,7 +34,7 @@ mentor_df = load_dataset_from_blob(st.session_state.blob_service_client,
                                    st.session_state.mentor_blob_path)
 
 mentor_df = clean_df(mentor_df)
-mentor_df.columns = constant.MENTOR_DF_COLUMNS
+mentor_df.columns = constant.MENTOR_DF_COLUMNS_1
 
 # Combine first and last name to create a full name column
 mentor_df['Full Name'] = mentor_df[constant.FIRST_NAME] + ' ' + mentor_df[constant.LAST_NAME]
@@ -52,12 +52,13 @@ if mentor_name != 'All':
 
     # List of columns to display
     columns_to_display = [
-        constant.EMAIL, constant.AGE, constant.MENTOR_QUESTION_1, constant.MENTOR_QUESTION_2,
+        constant.EMAIL, constant.AGE, constant.DOMAIN, constant.RESIDENCE, constant.PROFESSION,
+        constant.UNIVERSITY, constant.MENTOR_QUESTION_1, constant.MENTOR_QUESTION_2,
         constant.MENTOR_QUESTION_3, constant.MENTOR_QUESTION_4, constant.MENTOR_QUESTION_5,
         constant.MENTOR_QUESTION_6, constant.MENTOR_QUESTION_7, constant.MENTOR_QUESTION_8,
         constant.MENTOR_QUESTION_9, constant.MENTOR_QUESTION_10, constant.MENTOR_QUESTION_11,
         constant.MENTOR_QUESTION_12, constant.MENTOR_QUESTION_13, constant.MENTOR_QUESTION_14,
-        constant.MENTOR_QUESTION_15, constant.DATETIME
+        constant.REMARQUE, constant.DATETIME
     ]
 
     # Display each column

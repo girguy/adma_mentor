@@ -51,21 +51,21 @@ def clean_df(df: pd.DataFrame) -> pd.DataFrame:
         df (pd.DataFrame): The input DataFrame to be cleaned.
 
     Returns:
-        pd.DataFrame: The cleaned DataFrame with the most recent entries for each Email and missing values filled.
+        pd.DataFrame: The cleaned DataFrame with the most recent entries for each email and missing values filled.
 
     Raises:
         Exception: If there is an error during the data cleaning process.
     """
     try:
         logging.info("Cleaning DataFrame.")
-        # Convert 'SubmittedDatetime' to datetime format
-        df['SubmittedDatetime'] = pd.to_datetime(df['SubmittedDatetime'], dayfirst=True, errors='coerce')
+        # Convert 'submitted_datetime' to datetime format
+        df['submitted_datetime'] = pd.to_datetime(df['submitted_datetime'], errors='coerce')
 
         # Drop rows with invalid datetime values
-        df = df.dropna(subset=['SubmittedDatetime'])
+        df = df.dropna(subset=['submitted_datetime'])
 
-        # Group by 'Email' and get the index of the row with the maximum 'SubmittedDatetime' for each group
-        idx = df.groupby('Email')['SubmittedDatetime'].idxmax()
+        # Group by 'email' and get the index of the row with the maximum 'submitted_datetime' for each group
+        idx = df.groupby('email')['submitted_datetime'].idxmax()
 
         # Use the indices to select the corresponding rows from the DataFrame
         most_recent_df = df.loc[idx].reset_index(drop=True)
@@ -122,7 +122,7 @@ def get_date_time() -> str:
     # Get the current date and time
     now = datetime.now()
     # Format the date and time as a string
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
     return dt_string
 
 def reduce_white_space_above_title() -> str:

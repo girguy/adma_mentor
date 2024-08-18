@@ -10,29 +10,32 @@ from config.utils import get_date_time
 
 def add_row_to_dataframe():
     row = pd.DataFrame({
-        constant.FIRST_NAME: [st.session_state.first_name_mentor],
-        constant.LAST_NAME: [st.session_state.last_name_mentor],
-        constant.DATETIME: [st.session_state.date_time],
-        constant.SUBMITTED_DATETIME: [get_date_time()],
-        constant.AGE: [st.session_state.age_mentor],
-        constant.EMAIL: [st.session_state.email_mentor],
-        constant.MENTOR_QUESTION_1: [st.session_state.question_1_mentor],
-        constant.MENTOR_QUESTION_2: [st.session_state.question_2_mentor],
-        constant.MENTOR_QUESTION_3: [st.session_state.question_3_mentor],
-        constant.MENTOR_QUESTION_4: [st.session_state.question_4_mentor],
-        constant.MENTOR_QUESTION_5: [st.session_state.question_5_mentor],
-        constant.MENTOR_QUESTION_6: [st.session_state.question_6_mentor],
-        constant.MENTOR_QUESTION_7: [st.session_state.question_7_mentor],
-        constant.MENTOR_QUESTION_8: [st.session_state.question_8_mentor],
-        constant.MENTOR_QUESTION_9: [st.session_state.question_9_mentor],
-        constant.MENTOR_QUESTION_10: [st.session_state.question_10_mentor],
-        constant.MENTOR_QUESTION_11: [st.session_state.question_11_mentor],
-        constant.MENTOR_QUESTION_12: [st.session_state.question_12_mentor],
-        constant.MENTOR_QUESTION_13: [st.session_state.question_13_mentor],
-        constant.MENTOR_QUESTION_14: [st.session_state.question_14_mentor],
-        constant.MENTOR_QUESTION_15: [st.session_state.question_15_mentor],
-        constant.REMARQUE: [st.session_state.question_16_mentor],
-        constant.INTERVIEWER: [st.session_state.interviewer]
+        'first_name': [st.session_state.first_name_mentor],
+        'last_name': [st.session_state.last_name_mentor],
+        'age': [st.session_state.age_mentor],
+        'email': [st.session_state.email_mentor],
+        'domain': [st.session_state.domain],
+        'residence': [st.session_state.residence],
+        'profession': [st.session_state.profession],
+        'university': [st.session_state.university],
+        'datetime': [st.session_state.date_time],
+        'submitted_datetime': [get_date_time()],
+        'question_1': [st.session_state.question_1_mentor],
+        'question_2': [st.session_state.question_2_mentor],
+        'question_3': [st.session_state.question_3_mentor],
+        'question_4': [st.session_state.question_4_mentor],
+        'question_5': [st.session_state.question_5_mentor],
+        'question_6': [st.session_state.question_6_mentor],
+        'question_7': [st.session_state.question_7_mentor],
+        'question_8': [st.session_state.question_8_mentor],
+        'question_9': [st.session_state.question_9_mentor],
+        'question_10': [st.session_state.question_10_mentor],
+        'question_11': [st.session_state.question_11_mentor],
+        'question_12': [st.session_state.question_12_mentor],
+        'question_13': [st.session_state.question_13_mentor],
+        'question_14': [st.session_state.question_14_mentor],
+        'remarque': [st.session_state.remarque_mentor],
+        'interviewer': [st.session_state.interviewer]
         })
 
     st.session_state.mentor_data = pd.concat([st.session_state.mentor_data, row])
@@ -66,6 +69,16 @@ with mentor_form:
     with cols[3]:
         st.session_state.email_mentor = st.text_input('Email')
 
+    cols = st.columns(4)
+    with cols[0]:
+        st.session_state.domain = st.text_input("Domaine d'activité")
+    with cols[1]:
+        st.session_state.residence = st.text_input('Résidence')
+    with cols[2]:
+        st.session_state.profession = st.text_input('Profession')
+    with cols[3]:
+        st.session_state.university = st.text_input('Université')
+
     st.session_state.question_1_mentor = st.text_area(constant.MENTOR_QUESTION_1)
     st.session_state.question_2_mentor = st.text_area(constant.MENTOR_QUESTION_2)
     st.session_state.question_3_mentor = st.text_area(constant.MENTOR_QUESTION_3)
@@ -80,7 +93,7 @@ with mentor_form:
     st.session_state.question_12_mentor = st.text_area(constant.MENTOR_QUESTION_12)
     st.session_state.question_13_mentor = st.text_area(constant.MENTOR_QUESTION_13)
     st.session_state.question_14_mentor = st.text_area(constant.MENTOR_QUESTION_14)
-    st.session_state.question_15_mentor = st.text_area(constant.MENTOR_QUESTION_15)
+    st.session_state.remarque_mentor = st.text_area(constant.REMARQUE)
 
     submitted = st.form_submit_button()
     if submitted:

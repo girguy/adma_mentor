@@ -34,7 +34,7 @@ mentee_df = load_dataset_from_blob(st.session_state.blob_service_client,
                                    st.session_state.mentee_blob_path)
 
 mentee_df = clean_df(mentee_df)
-mentee_df.columns = constant.MENTEE_DF_COLUMNS
+mentee_df.columns = constant.MENTEE_DF_COLUMNS_1
 
 # Combine first and last name to create a full name column
 mentee_df['Full Name'] = mentee_df[constant.FIRST_NAME] + ' ' + mentee_df[constant.LAST_NAME]
@@ -56,7 +56,7 @@ if mentee_name != 'All':
         constant.TOWN, constant.MENTEE_QUESTION_1, constant.MENTEE_QUESTION_2, constant.MENTEE_QUESTION_3,
         constant.MENTEE_QUESTION_4, constant.MENTEE_QUESTION_5, constant.MENTEE_QUESTION_6, constant.MENTEE_QUESTION_7,
         constant.MENTEE_QUESTION_8, constant.MENTEE_QUESTION_9, constant.MENTEE_QUESTION_10, constant.MENTEE_QUESTION_11,
-        constant.MENTEE_QUESTION_12, constant.MENTEE_QUESTION_13, constant.DATETIME
+        constant.MENTEE_QUESTION_12, constant.REMARQUE, constant.DATETIME
     ]
 
     # Display each column
