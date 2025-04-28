@@ -1,0 +1,16 @@
+[project]
+name = "adma_mentor"
+version = "0.1.0"
+description = "An ADMA project"
+authors = [{ name = "GirGuy", email = "guy.girineza@hotmail.com" }]
+dependencies = [
+    "streamlit==1.40.0",
+    "azure-storage-blob"
+]
+# requires-python = ">=3.8"
+
+[tool.setuptools]
+packages = ["dags", "include", "plugins"]
+
+[tool.uv]
+# Optional: if you want to configure UV-specific settings, you can add them here
